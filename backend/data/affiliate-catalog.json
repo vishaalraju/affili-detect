@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ergonomic-chair",
+    "category": "office",
+    "title": "Ergonomic mesh office chair",
+    "summary": "Breathable mesh chair with adjustable lumbar support, seat height, arm rests and tilt tension. Best for long desk sessions.",
+    "priceRange": "$140–$220",
+    "tags": ["chair", "ergonomic", "home office", "back support"]
+  },
+  {
+    "id": "usb-c-hub",
+    "category": "electronics",
+    "title": "8-in-1 USB-C hub",
+    "summary": "Laptop expansion hub with HDMI, USB-A, USB-C power delivery, SD reader and Ethernet. Verify the laptop USB-C port supports video output.",
+    "priceRange": "$35–$65",
+    "tags": ["laptop", "usb-c", "hdmi", "accessory"]
+  },
+  {
+    "id": "insulated-bottle",
+    "category": "lifestyle",
+    "title": "Insulated stainless-steel water bottle",
+    "summary": "Reusable bottle with a leak-resistant cap. Choose capacity based on daily use and check whether the lid is dishwasher safe.",
+    "priceRange": "$25–$45",
+    "tags": ["bottle", "hydration", "travel", "reusable"]
+  },
+  {
+    "id": "mx-keys",
+    "category": "electronics",
+    "title": "Wireless productivity keyboard",
+    "summary": "Full-size low-profile keyboard for multi-device productivity. Consider layout, backlighting needs and operating-system compatibility before buying.",
+    "priceRange": "$90–$120",
+    "tags": ["keyboard", "wireless", "work", "productivity"]
+  },
+  {
+    "id": "affiliate-disclosure",
+    "category": "compliance",
+    "title": "Affiliate disclosure guidance",
+    "summary": "Clearly disclose affiliate relationships close to the recommendation or link. Do not claim a price, stock level or discount unless it is current and verifiable.",
+    "priceRange": "N/A",
+    "tags": ["affiliate", "disclosure", "compliance", "creator"]
+  }
+]

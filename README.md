@@ -1,16 +1,39 @@
-# React + Vite
+# Affili-Detect AI Shopping Copilot
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A final-year full-stack project: visual affiliate discovery plus an authenticated, RAG-grounded shopping chatbot.
 
-Currently, two official plugins are available:
+## Architecture
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React + Vite**: responsive product interface and chat UI.
+- **Express API**: JWT authentication, request validation, rate limiting and error handling.
+- **SQLite**: users, conversations, messages and request logs. Swap the repository layer for MongoDB/MySQL when deploying a multi-instance service.
+- **RAG**: OpenAI embeddings + cosine-similarity local vector cache for development. The curated dataset is in `backend/data/affiliate-catalog.json`; an optional Pinecone retrieval and indexing path supports production-scale vector search.
+- **LLM**: OpenAI Responses API. Answers are explicitly constrained to retrieved catalog context.
 
-## React Compiler
+## Local setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Copy `.env.example` to `.env` and `backend/.env.example` to `backend/.env`.
+2. Set a unique `JWT_SECRET` (32+ characters) and `OPENAI_API_KEY` in `backend/.env`.
+3. Install and run the API:
 
-## Expanding the ESLint configuration
+   ```powershell
+   cd backend
+   npm install
+   npm run dev
+   ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+4. In a second terminal, start the frontend:
+
+   ```powershell
+   npm run dev
+   ```
+
+Open the app, select **AI Shopping Copilot**, create an account, and start chatting.
+
+For Pinecone, create a dense index matching the embedding dimensions, set `PINECONE_API_KEY`, `PINECONE_INDEX_HOST`, and `PINECONE_NAMESPACE`, then run `npm run index:catalog` from `backend/`. Without Pinecone, the API creates a local vector cache after its first embedded query.
+
+## Deployment
+
+Build the frontend with `npm run build` and host `dist/` on a static host. Deploy `backend/` as a Node service with persistent storage for `/app/data`; set all values from `backend/.env.example` as platform secrets. GitHub Pages only hosts the frontend—use Render, Railway, Fly.io, or a similar service for the API, then set `VITE_API_URL` to its HTTPS URL before building.
+
+For Docker, copy `backend/.env.example` to `backend/.env`, configure its secrets, and run `docker compose up --build`.
