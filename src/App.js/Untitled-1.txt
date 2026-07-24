@@ -1,0 +1,57 @@
+import { useEffect, useRef } from "react";
+import * as cocoSsd from "@tensorflow-models/coco-ssd";
+import "@tensorflow/tfjs";
+
+function App() {
+  const videoRef = useRef();
+  const canvasRef = useRef();
+
+  let model;
+
+  useEffect(() => {
+    startCamera();
+    loadModel();
+  }, []);
+
+  const loadModel = async () => {
+    model = await cocoSsd.load();
+    detect();
+  };
+
+  const startCamera = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    videoRef.current.srcObject = stream;
+  };
+
+  const detect = async () => {
+    setInterval(async () => {
+      if (!model) return;
+
+      const predictions = await model.detect(videoRef.current);
+      draw(predictions);
+    }, 1000);
+  };
+
+  const draw = (predictions) => {
+    const ctx = canvasRef.current.getContext("2d");
+    ctx.clearRect(0, 0, 640, 480);
+
+    predictions.forEach((pred) => {
+      const [x, y, w, h] = pred.bbox;
+      ctx.strokeStyle = "lime";
+      ctx.strokeRect(x, y, w, h);
+      ctx.fillText(pred.class, x, y);
+    });
+  };
+
+  return (
+    <div style={{ textAlign: "center" }}>
+      <h1>Smart Detector 🚀</h1>
+
+      <video ref={videoRef} autoPlay width="640" height="480" />
+      <canvas ref={canvasRef} width="640" height="480" />
+    </div>
+  );
+}
+
+export default App;
