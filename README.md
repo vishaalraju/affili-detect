@@ -37,3 +37,7 @@ For Pinecone, create a dense index matching the embedding dimensions, set `PINEC
 Build the frontend with `npm run build` and host `dist/` on a static host. Deploy `backend/` as a Node service with persistent storage for `/app/data`; set all values from `backend/.env.example` as platform secrets. GitHub Pages only hosts the frontend—use Render, Railway, Fly.io, or a similar service for the API, then set `VITE_API_URL` to its HTTPS URL before building.
 
 For Docker, copy `backend/.env.example` to `backend/.env`, configure its secrets, and run `docker compose up --build`.
+
+### Free Render backend
+
+The repository includes `render.yaml`. In Render, choose **New → Blueprint**, select this repository, and enter your `OPENAI_API_KEY` when prompted. After deployment, copy the service URL and add it in GitHub under **Settings → Secrets and variables → Actions → Variables** as `VITE_API_URL` (for example, `https://affili-detect-api.onrender.com`). Push any commit or rerun the Pages workflow to rebuild the frontend with the API URL.
