@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8787";
 async function request(path, options = {}, token) {
-  const response = await fetch(`${API_URL}${path}`, { ...options, headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}), ...options.headers } });
+  let response;
+  try {
+    response = await fetch(`${API_URL}${path}`, { ...options, headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}), ...options.headers } });
+  } catch {
+    throw new Error("The AI API is not online. GitHub Pages hosts the website only—deploy the backend and set VITE_API_URL to its HTTPS address.");
+  }
   const body = await response.json();
   if (!response.ok) throw new Error(body.error || "Request failed.");
   return body;

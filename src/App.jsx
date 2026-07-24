@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import WebcamScanner from "./components/WebcamScanner";
-import MediaScanner from "./components/MediaScanner";
 import PriceComparisonModal from "./components/PriceComparisonModal";
-import CreatorStudio from "./components/CreatorStudio";
 import ShoppingCopilot from "./components/ShoppingCopilot";
 import "./App.css";
 
@@ -200,7 +198,7 @@ const getFallbackDeals = (className) => {
 };
 
 function App() {
-  const [activeTab, setActiveTab] = useState("webcam"); // 'webcam', 'media', 'studio', 'copilot'
+  const [activeTab, setActiveTab] = useState("webcam"); // 'webcam', 'copilot'
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem("affili-detect-theme");
     return savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
@@ -280,18 +278,6 @@ function App() {
             onClick={() => setActiveTab("webcam")}
           >
             📹 Live AR Webcam
-          </button>
-          <button
-            className={`nav-tab-btn ${activeTab === "media" ? "active" : ""}`}
-            onClick={() => setActiveTab("media")}
-          >
-            🖼️ Shop the Video / Photo
-          </button>
-          <button
-            className={`nav-tab-btn ${activeTab === "studio" ? "active" : ""}`}
-            onClick={() => setActiveTab("studio")}
-          >
-            ⚙️ Creator Studio & Revenue
           </button>
           <button
             className={`nav-tab-btn ${activeTab === "copilot" ? "active" : ""}`}
@@ -424,16 +410,6 @@ function App() {
           </div>
         )}
 
-        {activeTab === "media" && (
-          <MediaScanner onSelectProduct={openComparisonModal} />
-        )}
-
-        {activeTab === "studio" && (
-          <CreatorStudio
-            affiliateTag={affiliateTag}
-            onSaveAffiliateTag={(newTag) => setAffiliateTag(newTag)}
-          />
-        )}
         {activeTab === "copilot" && <ShoppingCopilot />}
       </main>
 
