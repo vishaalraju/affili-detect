@@ -1169,6 +1169,173 @@
   color: #fff;
 }
 
+/* ─── INTERACTIVE CHAT ACTION BAR ────────────────────────────────────────── */
+.chat-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.chat-action-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-sm);
+  padding: 4px 9px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+  font-family: var(--sans);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.18s ease;
+}
+
+.chat-action-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-bg);
+  transform: translateY(-1px);
+}
+
+.chat-action-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.chat-action-btn.active-green {
+  border-color: var(--success);
+  color: var(--success);
+  background: var(--success-bg);
+}
+
+/* ─── INTERACTIVE TOPIC / CATEGORY PILLS ─────────────────────────────────── */
+.chatbot-topics-bar {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.topic-pill-btn {
+  background: var(--social-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 6px 12px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-h);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.topic-pill-btn:hover {
+  background: linear-gradient(135deg, var(--grad-from), var(--grad-via));
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 12px rgba(124, 58, 237, 0.3);
+}
+
+.topic-pill-btn.active {
+  background: linear-gradient(135deg, var(--grad-from), var(--grad-via));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.35);
+}
+
+/* ─── VOICE INPUT MIC BUTTON ─────────────────────────────────────────────── */
+.voice-mic-btn {
+  background: var(--social-bg);
+  border: 1px solid var(--border);
+  color: var(--text-h);
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.voice-mic-btn:hover {
+  border-color: var(--accent-border);
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.voice-mic-btn.listening {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+  animation: pulse-mic 1.2s infinite ease-in-out;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.5);
+}
+
+@keyframes pulse-mic {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+/* ─── INTERACTIVE SCANNED CONTEXT WIDGET ─────────────────────────────────── */
+.scanned-context-widget {
+  background: linear-gradient(135deg, var(--accent-bg), var(--social-bg));
+  border: 1px solid var(--accent-border);
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scanned-context-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.scanned-context-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.scanned-action-chip {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-h);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.scanned-action-chip:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
 /* ─── CHATBOT FOOTER ────────────────────────────────────────────────────── */
 .chatbot-footer-section {
   display: flex;

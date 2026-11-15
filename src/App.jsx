@@ -444,6 +444,7 @@ export default function App() {
             <RagChatbot
               scannedProduct={activeProduct ? activeProduct.product_name : null}
               onSelectProduct={(name) => setModalProductClass(name)}
+              onSaveDeal={handleSaveDeal}
               affiliateTag={affiliateTag}
             />
           )}
