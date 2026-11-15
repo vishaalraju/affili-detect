@@ -59,12 +59,30 @@ app.post("/api/chat", requireAuth, async (req, res, next) => {
     if (!ownsConversation) return res.status(404).json({ error: "Conversation not found." });
     const history = db.prepare("SELECT role, content FROM messages WHERE conversation_id = ? ORDER BY created_at DESC LIMIT 10").all(conversationId).reverse();
     db.prepare("INSERT INTO messages (id, conversation_id, role, content) VALUES (?, ?, 'user', ?)").run(randomUUID(), conversationId, text);
-    const result = await answer(text, history);
+    const result = await answer(text, history, req.body.productClass || null, req.body.affiliateTag || "affilidetect-20");
     const assistantMessage = { id: randomUUID(), role: "assistant", content: result.text, sources: result.sources, created_at: new Date().toISOString() };
     db.prepare("INSERT INTO messages (id, conversation_id, role, content, sources_json) VALUES (?, ?, 'assistant', ?, ?)")
       .run(assistantMessage.id, conversationId, assistantMessage.content, JSON.stringify(result.sources));
     db.prepare("UPDATE conversations SET updated_at = CURRENT_TIMESTAMP WHERE id = ?").run(conversationId);
     res.json({ conversationId, message: assistantMessage });
+  } catch (error) { next(error); }
+});
+app.post("/api/chat-public", async (req, res, next) => {
+  try {
+    const text = String(req.body.message || "").trim();
+    if (!text || text.length > 2000) return res.status(400).json({ error: "Message must be between 1 and 2,000 characters." });
+    const history = Array.isArray(req.body.history) ? req.body.history : [];
+    const affiliateTag = String(req.body.affiliateTag || "affilidetect-20").trim();
+    const productClass = req.body.productClass || null;
+    const result = await answer(text, history, productClass, affiliateTag);
+    const assistantMessage = {
+      id: randomUUID(),
+      role: "assistant",
+      content: result.text,
+      sources: result.sources,
+      created_at: new Date().toISOString()
+    };
+    res.json({ message: assistantMessage });
   } catch (error) { next(error); }
 });
 app.use((error, _req, res, _next) => {
